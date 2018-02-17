@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="build" name="SimpleSpoonTransformer">
+
+	<path id="SimpleSpoonTransformer.classpath">
+        <pathelement path="bin"/>
+        <pathelement path="lib/spoon-core-1.4.jar"/>
+    </path>
+    
+    <target name="clean">
+        <delete dir="bin" />
+    	<delete dir="spoon" />
+    </target>
+
+	<target name="init">
+		<mkdir dir="bin" />
+	</target>
+	
+	<target name="build" depends="build-src, build-test" />
+	
+	<target name="build-src" depends="init">
+	 	<javac destdir="bin">
+	 		<src path="src"/>
+	        <classpath refid="SimpleSpoonTransformer.classpath"/>
+	    </javac>
+	</target>
+	
+	<target name="build-test" depends="init">
+        <javac destdir="bin">
+            <src path="test"/>
+            <classpath refid="SimpleSpoonTransformer.classpath"/>
+        </javac>	
+	</target>
+
+	<target name="run-sample" depends="build">
+		<java 
+			fork="true"
+			classname="IfTransformExample.Main" 
+			classpathref="SimpleSpoonTransformer.classpath" />
+	</target>
+	
+</project>
